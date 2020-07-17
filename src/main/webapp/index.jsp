@@ -9,7 +9,7 @@
     <h1>World Navigator</h1>
 
     <h3>Register here</h3>
-    <form method="post">
+    <form method="post" action="RegisterServlet">
         <input type="text" placeholder="Username" name="uname">
         <input type="password" placeholder="Password" name="password">
         <button type="submit" href="#" class="button">Register Now</button>
@@ -23,11 +23,11 @@
 <div class="popup">
     <div class="popup-content">
         <h3>Login User</h3>
-        <form method="post">
+        <form method="post" action="LoginServlet">
             <img src="icons/close.png" id="close" alt="Close" class="close">
             <input type="text" placeholder="Username" name="uname">
             <input type="password" placeholder="Password" name="password">
-            <button type="submit" href="#" class="button">Login</button>
+            <button type="submit" class="button">Login</button>
         </form>
     </div>
 </div>
