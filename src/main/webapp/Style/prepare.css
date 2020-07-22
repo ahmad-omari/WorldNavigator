@@ -1,0 +1,15 @@
+body{
+    background: antiquewhite;
+}
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.container h1{
+    color: black;
+    font-size: 36px;
+    margin-bottom: 40px;
+}

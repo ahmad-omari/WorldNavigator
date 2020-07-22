@@ -1,0 +1,63 @@
+body{
+    background: antiquewhite;
+}
+
+.centerAll{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    width:70%;
+    height: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.commands{
+    margin-left: 15%;
+}
+
+.button{
+    background: black;
+    padding: 10px 15px;
+    color: aliceblue;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-decoration: none;
+    transition: 0.4s;
+}
+
+.button:hover{
+    background: #34495e;
+    color: #ffffff;
+}
+
+.exitbtn{
+    background: red;
+    padding: 10px 15px;
+    color: aliceblue;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-decoration: none;
+    transition: 0.4s;
+    margin-left: auto;
+    margin-right: auto;
+}
