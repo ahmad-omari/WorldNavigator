@@ -15,7 +15,6 @@ public class MySqlDB {
 
             DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getConnection();
-            System.out.println("error constructor ssssssss "+connection==null);
             // Create a Statement
             preparedStatement = connection.prepareStatement("insert into players " +
                     "(username, password) values (?, ?)");
@@ -27,6 +26,7 @@ public class MySqlDB {
 
     public boolean addPlayer(String username,String password){
         if (isPlayerExist(username)) {
+            System.out.println("yessss");
             return false;
         }
         try {
@@ -38,12 +38,18 @@ public class MySqlDB {
             }
         }catch (SQLException e){
             e.printStackTrace();
+            System.out.println("yessss2");
             return false;
         }
+        System.out.println("yessss3");
         return false;
     }
 
     public boolean isValidPlayer(String username,String password){
+        if (connection == null){
+            System.out.println("null database ");
+            return false;
+        }
         String query = "select * from players";//" where username="+username;
         try {
             Statement statement = connection.createStatement();
@@ -71,6 +77,7 @@ public class MySqlDB {
             while (resultSet.next()){
                 String dbUsername = resultSet.getString("username");
                 if (dbUsername.equals(username)){
+                    System.out.println("nooooo");
                     return true;
                 }
             }
@@ -78,7 +85,7 @@ public class MySqlDB {
             throwables.printStackTrace();
             return false;
         }
-        return true;
+        return false;
     }
 
 }
