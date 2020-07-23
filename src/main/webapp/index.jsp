@@ -43,30 +43,5 @@
     </div>
 </div>
 
-
-<script>
- <!--   $(document).ready(function () {
-        $("#regsubmit").click(function () {
-            $.ajax({
-                type:'POST',
-                url:'RegisterServlet',
-                success:function (data) {
-
-                },
-                error:function (e) {
-                    alert("Error");
-                }
-            })
-        });
-    });
-
-    $(document).on("click", "#regsubmit", function() { // When HTML DOM "click" event is invoked on element with ID "somebutton", execute the following function...
-        $.get("RegisterServlet", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-            $("#registrationresult").text(responseText);           // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-        });
-    });
- -->
-</script>
-
 </body>
 </html>

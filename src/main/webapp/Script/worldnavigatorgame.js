@@ -7,7 +7,7 @@ window.onload = function () {
 
     function logout() {
         if (window.confirm("Do you really want to leave the game?")) {
-            window.location.href = "LogoutServlet"
+            window.location.href = "LogoutServlet";
         }
     }
 }

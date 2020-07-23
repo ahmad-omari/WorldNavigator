@@ -13,3 +13,17 @@ body{
     font-size: 36px;
     margin-bottom: 40px;
 }
+.buttonexit{
+    background: red;
+    padding: 10px 15px;
+    color: aliceblue;
+    font-weight: bolder;
+    text-transform: uppercase;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-decoration: none;
+    transition: 0.4s;
+    margin-left: auto;
+    margin-right: auto;
+}

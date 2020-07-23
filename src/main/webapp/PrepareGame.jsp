@@ -1,5 +1,4 @@
 <%@ page import="java.util.HashSet" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="GameObjects.PlayersWaiting" %>
 <html>
 <head>
@@ -16,7 +15,7 @@
     }
 
     if (PlayersWaiting.getTimerSeconds() == 0){
-        response.sendRedirect("WorldNavigatorGame.jsp");
+        response.sendRedirect("MapsServlet");
     }
 %>
 
@@ -31,7 +30,9 @@
             <%= "<li>"+ s +"</li> <br>"%>
      <% }   %>
     </ol>
+ <!--   <button type="button" class="buttonexit" id="logoutbtn" onclick="logout()">Exit</button>  -->
 </div>
+
 
 </body>
 </html>
