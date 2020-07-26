@@ -3,7 +3,7 @@ package GameObjects;
 public class GoldenKey extends Key {
     public GoldenKey() {
         super("Golden key");
-        MapConfiguration configuration = new MapConfiguration();
+        MapConfiguration configuration = MapConfiguration.getInstance();
         setItemValue(configuration.getKeyGoldValue());
     }
 

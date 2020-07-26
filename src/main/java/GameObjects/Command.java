@@ -1,5 +1,5 @@
 package GameObjects;
 
 public interface Command {
-    public void execute();
+    public void execute(String playerID);
 }

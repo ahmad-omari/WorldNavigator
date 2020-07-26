@@ -42,11 +42,11 @@ public class GameCommand extends MapCommands {
         commandsMap.put("switchlight", invoker);
     }
 
-    public void invoke(String commandRequest){
+    public void invoke(String commandRequest,String playerID){
         String command = prepareCommand(commandRequest);
         Invoker invoker = commandsMap.get(command);
         if (invoker != null){
-            invoker.invoke();
+            invoker.invoke(playerID);
         }
     }
 

@@ -3,21 +3,19 @@ package GameObjects;
 import java.util.Iterator;
 
 public class Player {
-   // private final String playerName;
+    private final String playerID;
     private ItemsCollection playerItems;
     private Direction facingDirection;
 
-    public Player(){//String playerName){
-       // this.playerName = playerName;
+    public Player(String playerID){
+        this.playerID = playerID;
         playerItems = new ItemsCollection();
         facingDirection = Direction.NORTH;
     }
-/*
-    public String getPlayerName() {
-        return playerName;
-    }
 
- */
+    public String getPlayerID() {
+        return playerID;
+    }
 
     public void addPlayerItem(Item item){
         playerItems.addItem(item);
@@ -35,8 +33,8 @@ public class Player {
         return playerItems.getItem(itemName);
     }
 
-    public void listPlayerItems(){
-        playerItems.listItems();
+    public String listPlayerItems(){
+        return playerItems.listItems();
     }
 
     public boolean isPlayerItemsEmpty(){

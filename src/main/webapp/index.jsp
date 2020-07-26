@@ -17,7 +17,6 @@
         <input type="password" placeholder="Password" name="password" id="regpassword">
         <button type="submit" href="" class="button" id="regsubmit">Register Now</button>
     </form>
-
     <%    if(request.getAttribute("message") != null) {  %>
             <%=  "<h5>" + request.getAttribute("message") + "</h5>" %>
     <%    }  %>
@@ -39,7 +38,6 @@
             <input type="password" placeholder="Password" name="password" id="logpassword">
             <button type="submit" class="button">Login</button>
         </form>
-
     </div>
 </div>
 

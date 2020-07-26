@@ -2,8 +2,8 @@ package GameObjects;
 
 public class PlainWall implements MapSite {
     @Override
-    public void look() {
-        System.out.println("You are facing an empty wall");
+    public String look() {
+        return "You are facing an empty wall";
     }
 
     @Override

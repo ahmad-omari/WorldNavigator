@@ -16,8 +16,8 @@ public class Mirror implements MapSite {
     }
 
     @Override
-    public void look() {
-        System.out.println("You See a silhouette of you");
+    public String look() {
+        return "You See a silhouette of you";
     }
 
     @Override

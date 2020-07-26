@@ -19,13 +19,13 @@ public class Seller implements MapSite {
         return playerItems.getItem(itemName);
     }
 
-    public void listSellerItems(){
-        playerItems.listItems();
+    public String listSellerItems(){
+        return playerItems.listItems();
     }
 
     @Override
-    public void look() {
-        System.out.println("You are facing a seller");
+    public String look() {
+        return "You are facing a seller";
     }
 
     @Override

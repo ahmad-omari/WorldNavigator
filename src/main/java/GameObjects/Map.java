@@ -6,7 +6,7 @@ public class Map implements MapLoader{
     private MapConfiguration configuration;
 
     public Map(){
-        configuration = new MapConfiguration();
+        configuration = MapConfiguration.getInstance();
     }
     @Override
     public GameMap createMap(MapFactory mapFactory) {
@@ -21,8 +21,10 @@ public class Map implements MapLoader{
         int specialDoorsMax = configuration.getMaxNumberOfSpecialDoors();
         int roomMax = configuration.getMaxNumberOfRooms();
         int roomMin = configuration.getMinNumberOfRooms();
+        System.out.println("Results : "+specialDoorsMax+" "+specialDoorsMin+" "+roomMax+" "+roomMin);
         int numberOfRooms = (int) (Math.random() * (roomMax - roomMin + 1) + roomMin);
         int numberOfSpecialDoors = (int) (Math.random() * (specialDoorsMax - specialDoorsMin + 1) + specialDoorsMin);
+
 
         for (int i=1 ; i<=numberOfRooms ; i++){
             Room room = mapFactory.makeRoom(i);
@@ -30,8 +32,10 @@ public class Map implements MapLoader{
             room.setSide(Direction.SOUTH, getRandomSite());
             room.setSide(Direction.EAST, getRandomSite());
             room.setSide(Direction.NORTH, getRandomSite());
+            room.setRoomLight(new Light());
             gameMap.addRoom(room);
         }
+        System.out.println("number of rooms "+gameMap.getRoomsNumber());
 
         for (int i=1 ; i<numberOfRooms ; i++){
             Room room1 = gameMap.roomNo(i);
@@ -47,7 +51,7 @@ public class Map implements MapLoader{
         gameMap.roomNo(numberOfRooms).setSide(Direction.NORTH, door);
 
         for (int i=1 ; i<numberOfSpecialDoors ; i++){
-            int roomsNumber = (int) (Math.random() * (roomMax - roomMin + 1) + roomMin-1);
+            int roomsNumber = (int) (Math.random() * (numberOfRooms - 1 + 1) + 1);
             SpecialDoor specialDoor = (SpecialDoor) mapFactory.makeSpecialDoor(gameMap.roomNo(roomsNumber));
             Key key1 = getRandomKey();
             if (!key1.getITEM_NAME().equals(new EmptyItem().getITEM_NAME()))

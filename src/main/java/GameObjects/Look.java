@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class Look implements Command{
     GameMap map;
 
@@ -8,13 +10,18 @@ public class Look implements Command{
     }
 
     @Override
-    public void execute() {
-        Room room = map.getActiveRoom();
+    public void execute(String playerID) {
+        Room room = map.getActiveRoom(playerID);
         Light light = room.getRoomLight();
+        String result;
         if (light != null && light.isLightON())
-            map.getFacingMapSite().look();
+            result = map.getFacingMapSite(playerID).look();
         else
-            System.out.println("Dark");
+            result = "Dark";
+        StringBuilder stringBuilder = new StringBuilder("Look: ");
+        stringBuilder.append(result);
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        jsonObject.put("result",stringBuilder.toString());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class BuyItem implements Command {
     private GameMap map;
     private Item item;
@@ -18,13 +20,15 @@ public class BuyItem implements Command {
     }
 
     @Override
-    public void execute() {
-        MapSite sellerSite = map.getFacingMapSite();
+    public void execute(String playerID) {
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        MapSite sellerSite = map.getFacingMapSite(playerID);
         if (sellerSite instanceof Seller && !item.equals(new EmptyItem())) {
+            StringBuilder stringBuilder = new StringBuilder();
             int itemValue = getItemValue();
-            Item playerGold = getPlayerGold();
-            Item sellerItem = getSellerItem(item.getITEM_NAME());
-            Player player = map.getPlayer();
+            Item playerGold = getPlayerGold(playerID);
+            Item sellerItem = getSellerItem(item.getITEM_NAME(),playerID);
+            Player player = map.getPlayer(playerID);
 
             if (sellerItem.equals(new EmptyItem()))
                 return;
@@ -36,7 +40,7 @@ public class BuyItem implements Command {
                     player.addPlayerItem(playerGold);
                     player.addPlayerItem(item);
 
-                    Item sellerGold = getSellerGold();
+                    Item sellerGold = getSellerGold(playerID);
                     if (sellerGold.equals(new EmptyItem())) {
                         sellerGold = new Gold();
                         sellerGold.setItemValue(itemValue);
@@ -48,20 +52,23 @@ public class BuyItem implements Command {
                     }
                     ((Seller) sellerSite).removeSellerItem(item);
                 }
-
+                stringBuilder.append("Successful purchase");
             } else {
-                System.out.println("Return when you have enough gold");
+                stringBuilder.append("Return when you have enough gold");
             }
-        }
 
+            jsonObject.put("result",stringBuilder.toString());
+            return;
+        }
+        jsonObject.put("result","Cant trade");
     }
 
     private int getItemValue(){
         return item.getItemValue();
     }
 
-    private Item getSellerGold(){
-        MapSite sellerSite = map.getFacingMapSite();
+    private Item getSellerGold(String playerID){
+        MapSite sellerSite = map.getFacingMapSite(playerID);
         if (sellerSite instanceof Seller){
             Gold gold = new Gold();
             Item sellerGoldItem = ((Seller) sellerSite).getSellerItem(gold.getITEM_NAME());
@@ -72,8 +79,8 @@ public class BuyItem implements Command {
         return new EmptyItem();
     }
 
-    private Item getPlayerGold(){
-        Player player = map.getPlayer();
+    private Item getPlayerGold(String playerID){
+        Player player = map.getPlayer(playerID);
         Gold gold = new Gold();
         Item playerGoldItem = player.getPlayerItem(gold.getITEM_NAME());
         if (playerGoldItem.equals(gold))
@@ -81,8 +88,8 @@ public class BuyItem implements Command {
         return new EmptyItem();
     }
 
-    private Item getSellerItem(String itemName){
-        MapSite sellerSite = map.getFacingMapSite();
+    private Item getSellerItem(String itemName,String playerID){
+        MapSite sellerSite = map.getFacingMapSite(playerID);
         if (sellerSite instanceof Seller)
             return ((Seller) sellerSite).getSellerItem(itemName);
         return new EmptyItem();

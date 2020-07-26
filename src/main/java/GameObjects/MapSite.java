@@ -1,5 +1,5 @@
 package GameObjects;
 
 public interface MapSite {
-    public void look();
+    public String look();
 }

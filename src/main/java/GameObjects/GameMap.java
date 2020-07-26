@@ -5,20 +5,27 @@ import java.util.HashMap;
 
 public class GameMap {
     private ArrayList<Room> mapRooms;
-    private Player player;
-    private Room activeRoom;
-    private Room otherRoom;
+   // private Player player;
+ //   private Room activeRoom;
+ //   private Room otherRoom;
     private boolean available;
     private int mapID;
- //   private HashMap<String,Player> players;
+    private static HashMap<String,Player> players;
+
+    private HashMap<String,Room> activeRooms;
+    private HashMap<String,Room> otherRooms;
 
     public GameMap(){
         mapRooms = new ArrayList<>();
-  //      players = new HashMap<>();
+        players = new HashMap<>();
    //     player = new Player();
-        activeRoom = null;
-        otherRoom = null;
+    //    activeRoom = null;
+    //    otherRoom = null;
+        activeRooms = new HashMap<>();
+        otherRooms = new HashMap<>();
+
         available = true;
+
     }
 
     public int getMapID() {
@@ -39,21 +46,31 @@ public class GameMap {
 
     public void addRoom(Room room){
         mapRooms.add(room);
-        if (activeRoom == null)
-            activeRoom = mapRooms.get(0);
-    }
-/*
-    public void addPlayer(String playerName){
-        Player player = new Player(playerName);
-        players.put(playerName,player);
+     //   if (activeRoom == null)
+       //     activeRoom = mapRooms.get(0);
     }
 
-    public Player getPlayer(String playerName){
-        return players.get(playerName);
+    public void addPlayer(String playerID){
+        Player player = new Player(playerID);
+        player.addPlayerItem(new Gold());
+        activeRooms.put(playerID,getRandomRoom());
+        players.put(playerID,player);
     }
 
- */
+    private Room getRandomRoom(){
+        int randomRoomNumber = (int) (Math.random() * (mapRooms.size() - 2 + 1) + 1);
+        return mapRooms.get(randomRoomNumber);
+    }
 
+    public Player getPlayer(String playerID){
+        System.out.println(players.size()+" playing an is "+players.get(playerID)==null);
+        return players.get(playerID);
+    }
+
+
+
+
+    /*
     public Player getPlayer() {
         return player;
     }
@@ -62,27 +79,33 @@ public class GameMap {
         this.player = player;
     }
 
+     */
 
-    public Room getActiveRoom() {
-        return activeRoom;
+
+    public Room getActiveRoom(String playerID) {
+        return activeRooms.get(playerID);
     }
 
-    public void setActiveRoom(Room activeRoom) {
-        this.activeRoom = activeRoom;
+    public void setActiveRoom(Room activeRoom,String playerID) {
+        this.activeRooms.put(playerID,activeRoom);
     }
 
-    public Room getOtherRoom() {
-        return otherRoom;
+    public Room getOtherRoom(String playerID) {
+        return otherRooms.get(playerID);
     }
 
-    public void setOtherRoom(Room otherRoom) {
-        this.otherRoom = otherRoom;
+    public void setOtherRoom(Room otherRoom,String playerID) {
+        this.otherRooms.put(playerID,otherRoom);
     }
 
-    public MapSite getFacingMapSite(){//String playerName){
+    public MapSite getFacingMapSite(String playerID){//String playerName){
    //     Direction playerDirection = players.get(playerName).getFacingDirection();
-        Direction playerDirection = player.getFacingDirection();
-        return activeRoom.getSide(playerDirection);
+        Direction playerDirection = getFacingDirection(playerID);
+        return activeRooms.get(playerID).getSide(playerDirection);
+    }
+
+    public Direction getFacingDirection(String playerID){
+        return players.get(playerID).getFacingDirection();
     }
 
     public Room roomNo(int roomNumber )

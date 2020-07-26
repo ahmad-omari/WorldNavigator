@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class SwitchLight implements Command {
     private GameMap map;
 
@@ -8,10 +10,15 @@ public class SwitchLight implements Command {
     }
 
     @Override
-    public void execute() {
-        Room room = map.getActiveRoom();
-        if (room.hasLight())
+    public void execute(String playerID) {
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        Room room = map.getActiveRoom(playerID);
+        if (room.hasLight()) {
             room.getRoomLight().switchLight();
+            jsonObject.put("result","Light switched");
+        }else {
+            jsonObject.put("result","No light was found in the room");
+        }
     }
 
     @Override

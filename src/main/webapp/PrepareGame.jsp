@@ -9,11 +9,12 @@
 <body>
 <% response.setHeader("Refresh", "1"); %>
 <%
+
     HashSet<String> names = new HashSet<>();
     if(request.getSession(false)!=null){
         names = (HashSet<String>) request.getSession().getAttribute("names");
     }
-
+    request.getSession().setAttribute("numberofplayers",names.size());
     if (PlayersWaiting.getTimerSeconds() == 0){
         response.sendRedirect("MapsServlet");
     }

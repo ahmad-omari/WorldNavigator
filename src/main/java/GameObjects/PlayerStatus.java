@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class PlayerStatus implements Command {
     GameMap map;
 
@@ -8,9 +10,13 @@ public class PlayerStatus implements Command {
     }
 
     @Override
-    public void execute() {
-        Player player = map.getPlayer();
-        player.listPlayerItems();
+    public void execute(String playerID) {
+        Player player = map.getPlayer(playerID);
+        String result = player.listPlayerItems();
+        StringBuilder stringBuilder = new StringBuilder("Player Status: ");
+        stringBuilder.append(result);
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        jsonObject.put("result",stringBuilder.toString());
     }
 
     @Override

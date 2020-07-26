@@ -2,7 +2,7 @@ package GameObjects;
 
 public class FinishTrade implements Command {
     @Override
-    public void execute() {
+    public void execute(String playerID) {
         System.out.println("Trade mode finished");
     }
 

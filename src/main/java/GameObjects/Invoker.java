@@ -5,7 +5,7 @@ public class Invoker {
 
     public void storeCommand(Command command){this.command = command;}
 
-    public void invoke(){command.execute();}
+    public void invoke(String playerID){command.execute(playerID);}
 
     @Override
     public String toString() {

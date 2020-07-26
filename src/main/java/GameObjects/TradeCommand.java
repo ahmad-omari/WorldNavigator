@@ -1,7 +1,5 @@
 package GameObjects;
 
-import java.util.Arrays;
-
 public class TradeCommand extends MapCommands {
     private Item tradeItem;
     public TradeCommand(GameMap map) {
@@ -33,11 +31,11 @@ public class TradeCommand extends MapCommands {
     }
 
     @Override
-    public void invoke(String commandRequest) {
+    public void invoke(String commandRequest,String playerID) {
         String command = prepareCommand(commandRequest);
         Invoker invoker = commandsMap.get(command);
         if (invoker != null) {
-            invoker.invoke();
+            invoker.invoke(playerID);
         }
     }
 

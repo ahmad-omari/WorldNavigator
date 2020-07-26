@@ -1,5 +1,6 @@
 package GameObjects;
 
+import Database.DatabaseConnection;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,9 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class MapConfiguration {
+    private static MapConfiguration instance;
     private JSONObject jsonObject;
 
-    public MapConfiguration(){
+    private MapConfiguration(){
         this.jsonObject=null;
         readJSON();
     }
@@ -24,6 +26,7 @@ public class MapConfiguration {
             Object obj = jsonParser.parse(reader);
 
             this.jsonObject = (JSONObject) obj;
+            System.out.println("success loading json from constructor");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -31,6 +34,13 @@ public class MapConfiguration {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public static MapConfiguration getInstance(){
+        if (instance == null) {
+            instance = new MapConfiguration();
+        }
+        return instance;
     }
 
     public int getMinNumberOfRooms(){

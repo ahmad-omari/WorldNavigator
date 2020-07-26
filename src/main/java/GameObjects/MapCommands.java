@@ -39,7 +39,7 @@ public abstract class MapCommands {
 
     public abstract void makeCommands();
 
-    public abstract void invoke(String commandRequest);
+    public abstract void invoke(String commandRequest,String playerID);
 
     @Override
     public String toString() {

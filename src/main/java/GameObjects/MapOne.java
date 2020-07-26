@@ -12,9 +12,9 @@ public class MapOne implements MapLoader{
     }
 
     private void addPlayer(){
-        Player player = mapFactory.makePlayer();
-        player.addPlayerItem(new Gold());
-        gameMap.setPlayer(player);
+       // Player player = mapFactory.makePlayer();
+       // player.addPlayerItem(new Gold());
+       // gameMap.setPlayer(player);
     }
     private void addRooms(){
         Room room1 = mapFactory.makeRoom(1);

@@ -3,7 +3,7 @@ package GameObjects;
 public class MagicKey extends Key {
     public MagicKey() {
         super("Magic key");
-        MapConfiguration configuration = new MapConfiguration();
+        MapConfiguration configuration = MapConfiguration.getInstance();
         setItemValue(configuration.getKeyGoldValue());
     }
 

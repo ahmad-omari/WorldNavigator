@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class MapController {
     private GameMap map;
     private MapCommands gameCommands;
@@ -11,12 +13,12 @@ public class MapController {
         gameMode = true;
         gameCommands = new GameCommand(map);
         tradeCommands = new TradeCommand(map);
+        makeCommands();
     }
 
     public void makeCommands(){
         gameCommands.makeCommands();
         tradeCommands.makeCommands();
-        listCommands();
     }
 
     private void listCommands(){
@@ -27,24 +29,31 @@ public class MapController {
         System.out.println();
     }
 
-    public void makeAction(String actionRequest){
-        checkMode(actionRequest);
+    public void makeAction(String actionRequest,String playerID){
+        checkMode(actionRequest,playerID);
         if (gameMode)
-            gameCommands.invoke(actionRequest);
+            gameCommands.invoke(actionRequest,playerID);
         else
-            tradeCommands.invoke(actionRequest);
+            tradeCommands.invoke(actionRequest,playerID);
     }
 
-    private void checkMode(String actionRequest) {
+    private void checkMode(String actionRequest,String playerID) {
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
         if (actionRequest.toLowerCase().equals("trade")){
-            checkStartTrade();
+            checkStartTrade(playerID);
+            jsonObject.put("result","Trade mode active");
         }else if (actionRequest.toLowerCase().equals("finish")){
             checkEndTrade();
+            jsonObject.put("result","Trade mode finished");
+        }
+        String [] commandOfTrade = actionRequest.split("\\s");
+        if (commandOfTrade[0].equals("buy") || commandOfTrade[0].equals("sell")){
+            checkStartTrade(playerID);
         }
     }
 
-    private void checkStartTrade(){
-        MapSite sellerSite = map.getFacingMapSite();
+    private void checkStartTrade(String playerID){
+        MapSite sellerSite = map.getFacingMapSite(playerID);
         if (sellerSite instanceof Seller) {
             gameMode = false;
             System.out.println("You are in trade mode, enter <<finish>> to return game mode");

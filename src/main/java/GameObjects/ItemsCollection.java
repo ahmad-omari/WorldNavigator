@@ -44,19 +44,25 @@ public class ItemsCollection {
         }
     }
 
-    public void listItems(){
-        if (isEmpty())
+    public String listItems(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if (isEmpty()) {
             System.out.println("Items list is empty");
-        else {
+            stringBuilder.append("Items list is empty\n");
+        }else {
             System.out.println("Items list :");
+            stringBuilder.append("Items list :\n");
             Iterator iterator = itemsIterator();
             while (iterator.hasNext()){
                 Map.Entry pair = (Map.Entry) iterator.next();
                 int itemValue = itemsCollection.get(pair.getKey()).getItemValue();
                 System.out.println("Item name : "+pair.getKey() +"\nItem value : "+ itemValue+"\n");
+                stringBuilder.append("Item name : "+pair.getKey() +"\nItem value : "+ itemValue+"\n");
             }
             System.out.print("\n");
+            stringBuilder.append("\n");
         }
+        return stringBuilder.toString();
     }
 
     public Iterator itemsIterator(){

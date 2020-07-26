@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class ListSellerItem implements Command {
     private GameMap map;
 
@@ -8,10 +10,12 @@ public class ListSellerItem implements Command {
     }
 
     @Override
-    public void execute() {
-        MapSite sellerSite = map.getFacingMapSite();
+    public void execute(String playerID) {
+        MapSite sellerSite = map.getFacingMapSite(playerID);
         if (sellerSite instanceof Seller){
-            ((Seller) sellerSite).listSellerItems();
+            String result = ((Seller) sellerSite).listSellerItems();
+            JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+            jsonObject.put("result",result);
         }
     }
 

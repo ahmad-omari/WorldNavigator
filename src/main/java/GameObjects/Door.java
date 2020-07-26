@@ -45,8 +45,8 @@ public class Door implements MapSite {
     }
 
     @Override
-    public void look() {
-        System.out.println("You are facing a door");
+    public String look() {
+        return "You are facing a door";
     }
 
     @Override

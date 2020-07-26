@@ -3,7 +3,7 @@ package GameObjects;
 public class Gold extends Item {
     public Gold() {
         super("Gold");
-        setItemValue(100);
+        setItemValue(20);
     }
 
     public void addGold(int amount){

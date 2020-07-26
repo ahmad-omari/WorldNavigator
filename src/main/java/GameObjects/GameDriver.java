@@ -3,7 +3,6 @@ package GameObjects;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class GameDriver {
     private MapController controller;
@@ -53,7 +52,7 @@ public class GameDriver {
             try {
                 System.out.print("Enter command:");
                 playerInput = bufferedReader.readLine();
-                controller.makeAction(playerInput);
+                //controller.makeAction(playerInput);
 
             } catch (IOException e) {
                 System.out.println("Invalid input");

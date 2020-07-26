@@ -5,7 +5,7 @@ public class FlashLight extends Item {
     public FlashLight() {
         super("FlashLight");
         light = new Light();
-        MapConfiguration configuration = new MapConfiguration();
+        MapConfiguration configuration = MapConfiguration.getInstance();
         setItemValue(configuration.getFlashlightGoldValue());
     }
 

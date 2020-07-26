@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class OpenDoor implements Command {
     private GameMap map;
 
@@ -8,20 +10,23 @@ public class OpenDoor implements Command {
     }
 
     @Override
-    public void execute() {
-        MapSite doorSite = map.getFacingMapSite();
+    public void execute(String playerID) {
+        String result = "";
+        MapSite doorSite = map.getFacingMapSite(playerID);
         if (doorSite instanceof Door){
             Key key = ((Door) doorSite).getDoorKey();
             if (key == null) {
-                System.out.println("Door opened");
+                result = "Door opened";
                 ((Door) doorSite).setDoorOpen(true);
             }else {
                 if (((Door) doorSite).isOpen())
-                    System.out.println("Door opened");
+                    result = "Door opened";
                 else
-                    System.out.println("The "+key.getITEM_NAME()+" required to unlock");
+                    result = "The "+key.getITEM_NAME()+" required to unlock";
             }
         }
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        jsonObject.put("result",result);
     }
 
     @Override

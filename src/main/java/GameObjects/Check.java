@@ -1,5 +1,7 @@
 package GameObjects;
 
+import org.json.simple.JSONObject;
+
 public class Check implements Command {
     GameMap map;
 
@@ -8,55 +10,61 @@ public class Check implements Command {
     }
 
     @Override
-    public void execute() {
-        MapSite mapSite = map.getFacingMapSite();
-
+    public void execute(String playerID) {
+        MapSite mapSite = map.getFacingMapSite(playerID);
         KeyChecker keyChecker;
         ItemsCollectionChecker collectionChecker;
-
+        StringBuilder stringBuilder = new StringBuilder();
         if (mapSite instanceof Mirror){
             keyChecker = new KeyChecker(((Mirror) mapSite).getKey());
             Key key = keyChecker.check();
-            addAcquiredKey(key);
+            String result = addAcquiredKey(key,playerID);
+            stringBuilder.append(result);
         }else if (mapSite instanceof Painting){
             keyChecker = new KeyChecker(((Painting) mapSite).getKey());
             Key key = keyChecker.check();
-            addAcquiredKey(key);
+            String result = addAcquiredKey(key,playerID);
+            stringBuilder.append(result);
         }else if (mapSite instanceof Chest){
             if (((Chest) mapSite).isChestOpen()){
                 collectionChecker = new ItemsCollectionChecker(((Chest) mapSite).getChestItems());
                 ItemsCollection itemsCollection = collectionChecker.check();
-                addAcquiredItems(itemsCollection);
+                String result = addAcquiredItems(itemsCollection,playerID);
+                stringBuilder.append(result);
             }else {
                 Key key = ((Chest) mapSite).getChestKey();
-                System.out.println("Chest is closed "+ key.getITEM_NAME() +" is needed to unlock");
+                stringBuilder.append("Chest is closed "+ key.getITEM_NAME() +" is needed to unlock");
             }
         }else if (mapSite instanceof Door){
             if (((Door) mapSite).isOpen())
-                System.out.println("Door is open");
+                stringBuilder.append("Door is open");
             else {
                 Key key = ((Door) mapSite).getDoorKey();
-                System.out.println("Door is locked "+key.getITEM_NAME()+" is needed to unlock");
+                stringBuilder.append("Door is locked "+key.getITEM_NAME()+" is needed to unlock");
             }
         }
 
+        JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+        jsonObject.put("result",stringBuilder.toString());
     }
 
-    private void addAcquiredKey(Key key){
+    private String addAcquiredKey(Key key,String playerID){
         if (key instanceof EmptyKey) {
-            System.out.println("Nothing found");
+            return "Nothing found";
         }else {
-            Player player = map.getPlayer();
+            Player player = map.getPlayer(playerID);
             player.addPlayerItem(key);
+            return "Key "+key.getITEM_NAME()+" Acquired";
         }
     }
 
-    private void addAcquiredItems(ItemsCollection itemsCollection){
+    private String addAcquiredItems(ItemsCollection itemsCollection,String playerID){
         if (!itemsCollection.isEmpty()){
-            Player player = map.getPlayer();
+            Player player = map.getPlayer(playerID);
             player.addPlayerItems(itemsCollection);
+            return itemsCollection.listItems();
         }else {
-            System.out.println("Nothing found");
+            return "Nothing found";
         }
     }
 

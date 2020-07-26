@@ -10,7 +10,7 @@ public class PlayersWaiting {
 
     public PlayersWaiting(){
         timer = new Timer();
-        timerSeconds = 60;
+        timerSeconds = 10;
         makeTask();
         start();
     }
