@@ -12,7 +12,7 @@
     <h1>World Navigator Game</h1>
 
     <h3>Register here</h3>
-    <form method="post" action="RegisterServlet">
+    <form method="post" action="Controller.RegisterServlet">
         <input type="text" placeholder="Username" name="uname" id="regname">
         <input type="password" placeholder="Password" name="password" id="regpassword">
         <button type="submit" href="" class="button" id="regsubmit">Register Now</button>
@@ -32,7 +32,7 @@
 <div class="popup">
     <div class="popup-content">
         <h3>Login User</h3>
-        <form method="post" action="LoginServlet">
+        <form method="post" action="Controller.LoginServlet">
             <img src="icons/close.png" id="close" alt="Close" class="close">
             <input type="text" placeholder="Username" name="uname" id="logname">
             <input type="password" placeholder="Password" name="password" id="logpassword">

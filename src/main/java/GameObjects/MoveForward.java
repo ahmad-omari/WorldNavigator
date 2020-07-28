@@ -2,6 +2,8 @@ package GameObjects;
 
 import org.json.simple.JSONObject;
 
+import javax.servlet.http.HttpSession;
+
 public class MoveForward implements Command {
     private GameMap map;
 
@@ -21,11 +23,15 @@ public class MoveForward implements Command {
                     GameStatus status = GameStatus.getInstance();
                     status.setPlaying(false);
                     System.out.println("\nYou win");
+                    JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+                    jsonObject.put("result","finished");
                 }else {
                     map.setActiveRoom(nextRoom,playerID);
                     map.setOtherRoom(currentRoom,playerID);
+                    updateRoom(playerID);
+                    PlayersFight playersFight = new PlayersFight(map);
+                    playersFight.fightIfNeed(nextRoom,playerID);
                 }
-                updateRoom(playerID);
 
             }else {
                 rejected(playerID,"Door is closed");

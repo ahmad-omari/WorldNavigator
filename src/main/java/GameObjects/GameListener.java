@@ -13,20 +13,24 @@ public class GameListener {
       //  numberOfPlayers = 0;
     }
 
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        if (this.numberOfPlayers==0) {
+    public static int numberOfMaps(){
+        return gameMaps.size();
+    }
+
+    public void setNumberOfPlayers(int numberplayers) {
+        if (numberOfPlayers==0) {
             System.out.println("modi number of players");
-            this.numberOfPlayers = numberOfPlayers;
+            numberOfPlayers = numberplayers;
         }
     }
 
-    public GameMap createMap(){
+
+    public synchronized GameMap createMap(){
         System.out.println("number of players "+numberOfPlayers+" maps:"+gameMaps.size());
-        System.out.println("passed the test players "+numberOfPlayers+" mapid:"+mapID+" iscreated:"+gameMaps.get(mapID)!=null+" isavailable:"+(gameMaps.get(mapID)!=null && gameMaps.get(mapID).isAvailable()));
-        if (numberOfPlayers>0 && gameMaps.get(mapID)!=null && gameMaps.get(mapID).isAvailable()){
+         if (numberOfPlayers>0 && gameMaps.get(mapID)!=null && gameMaps.get(mapID).isAvailable()){
             numberOfPlayers--;
-            if (numberOfPlayers==0)
-                gameMaps.get(mapID).setAvailable(false);
+           // if (numberOfPlayers==0)
+               // gameMaps.get(mapID).setAvailable(false);
             return gameMaps.get(mapID);
         }
 

@@ -35,4 +35,12 @@ public class PlayerInfo {
     public static JSONObject getJSONObject(String playerID){
         return playersInfo.get(playerID);
     }
+
+    public static void removeJSONObject(String playerID){
+        playersInfo.remove(playerID);
+    }
+
+    public static int getNumberOfJSON(){
+        return playersInfo.size();
+    }
 }

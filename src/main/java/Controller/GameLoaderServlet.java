@@ -1,3 +1,5 @@
+package Controller;
+
 import GameObjects.PlayersWaiting;
 
 import javax.servlet.ServletException;

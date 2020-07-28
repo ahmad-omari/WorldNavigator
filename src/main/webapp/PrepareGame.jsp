@@ -16,7 +16,7 @@
     }
     request.getSession().setAttribute("numberofplayers",names.size());
     if (PlayersWaiting.getTimerSeconds() == 0){
-        response.sendRedirect("MapsServlet");
+        response.sendRedirect("Controller.MapsServlet");
     }
 %>
 
@@ -28,10 +28,9 @@
     <ol>
     <%
         for (String s : names) {%>
-            <%= "<li>"+ s +"</li> <br>"%>
+            <%= "<li><h3>"+ s +"</h3></li> <br>"%>
      <% }   %>
     </ol>
- <!--   <button type="button" class="buttonexit" id="logoutbtn" onclick="logout()">Exit</button>  -->
 </div>
 
 

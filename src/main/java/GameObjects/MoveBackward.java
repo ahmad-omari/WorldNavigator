@@ -18,6 +18,8 @@ public class MoveBackward implements Command {
                 Room room = map.getOtherRoom(playerID);
                 if (room != null) {
                     map.setActiveRoom(room, playerID);
+                    PlayersFight playersFight = new PlayersFight(map);
+                    playersFight.fightIfNeed(room,playerID);
                 }
                 updateRoom(playerID);
             }else {

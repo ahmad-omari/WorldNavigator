@@ -1,7 +1,7 @@
 package GameObjects;
 
 public class ImagesPath {
-    public static String getPath(String imageRequest){
+    public String getPath(String imageRequest){
         if (imageRequest.equals("door")){
             return "icons/doorimg.png";
         }else if(imageRequest.equals("mirror")){
@@ -19,7 +19,7 @@ public class ImagesPath {
         }
     }
 
-    public static String getArrowPath(int imageRequest,String side){
+    public String getArrowPath(int imageRequest,String side){
         switch (imageRequest){
             case 0:
                 if (side.equals("north")) {

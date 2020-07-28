@@ -134,13 +134,16 @@ window.onload = function () {
     function commandRequest(cmd) {
         $.ajax({
                 url:'CommandRequestServlet',
-                data:{command:cmd,IDPlayer:playerID,gameID:mapID},
+                data:{command:cmd,IDPlayer:playerID,gameID:mapID,playername:playerName},
                 type:'get',
                 cache:false,
                 success:function(data){
-                    $('#somediv').text(data);
-                    if (cmd=='forward' || cmd=='backward' || cmd=='left' || cmd=='right') {
-                        location.reload();
+                    if (data === "finished"){
+                    }else {
+                        $('#somediv').text(data);
+                        if (cmd == 'forward' || cmd == 'backward' || cmd == 'left' || cmd == 'right') {
+                            location.reload();
+                        }
                     }
                 },
                 error:function(){
@@ -149,4 +152,5 @@ window.onload = function () {
             }
         );
     }
+
 }

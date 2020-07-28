@@ -1,88 +1,41 @@
 package GameObjects;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.json.simple.JSONObject;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 public class GameDriver {
-    private MapController controller;
-    private MapSet mapSet;
-    private GameTimer timer;
-    private long timeInMinutes;
+    private GameListener gameListener;
+    private HttpSession httpSession;
+    private PlayerInfo playerInfo;
+    private static HashMap<String,Boolean> usersRegistered = new HashMap<>();
 
-    public GameDriver(){
-        mapSet = new MapSet();
-        mapSet.makeMaps();
+    public GameDriver(HttpSession session){
+        gameListener = new GameListener();
+        httpSession = session;
+        playerInfo = new PlayerInfo();
     }
 
-    public void play(){
-        prepareMap();
-    }
-
-    private void prepareMap() {
-        MapFactory mapFactory = new MapFactory();
-        MapLoader mapLoader = mapSet.getMapLoader();
-        mapLoader.load();
-        GameMap map = mapLoader.createMap(mapFactory);
-        calculateMapTimeInMinutes(map.getRoomsNumber());
-        controller = new MapController(map);
-        startGame();
-    }
-
-    private void startGame() {
-        setGameStatus(true);
-        terminatePrompt();
-        controller.makeCommands();
-        timer = new GameTimer();
-        timer.setTimeInMinutes(timeInMinutes);
-        timer.start();
-        readCommands();
-        timer.stop();
-    }
-
-    private void calculateMapTimeInMinutes(int numberOfRooms){
-        timeInMinutes = (long) Math.ceil(numberOfRooms);
-        System.out.println("Game time out "+timeInMinutes+" minutes.\n");
-    }
-
-    private void readCommands() {
-        String playerInput = "";
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while (!playerInput.equals("quite") && isPlaying()) {
-            try {
-                System.out.print("Enter command:");
-                playerInput = bufferedReader.readLine();
-                //controller.makeAction(playerInput);
-
-            } catch (IOException e) {
-                System.out.println("Invalid input");
-            }
+    public synchronized void createGame() {
+        if (usersRegistered.get(httpSession.getId()) != null) {
+            return;
         }
-
-        if (playerInput.equals("quite")) {
-            System.out.println("\nYou lose");
-            setGameStatus(false);
-        }
+        System.out.println("map created by "+httpSession.getId());
+        gameListener.setNumberOfPlayers((Integer) httpSession.getAttribute("numberofplayers"));
+        GameMap gameMap = gameListener.createMap();
+        gameMap.addPlayer(httpSession.getId());
+        httpSession.setAttribute("mapID",gameMap.getMapID());
+        preparePlayerData(gameMap);
+        usersRegistered.put(httpSession.getId(),true);
+    }
+    private void preparePlayerData(GameMap gameMap){
+        playerInfo.createJSONObject(httpSession.getId());
+        FillObject fillObject = new FillObject(gameMap,httpSession.getId());
+        fillObject.fetchDataFromMap();
     }
 
-
-    private void setGameStatus(boolean playing){
-        GameStatus status = GameStatus.getInstance();
-        status.setPlaying(playing);
-    }
-
-    public boolean isPlaying(){
-        GameStatus status = GameStatus.getInstance();
-        return status.isPlaying();
-    }
-
-    private void terminatePrompt(){
-        System.out.println("Terminate commands :");
-        System.out.println("quite, restart\n");
-    }
-
-    @Override
-    public String toString() {
-        return "Game Driver";
+    public static void removePlayer(String playerID){
+        usersRegistered.remove(playerID);
     }
 }

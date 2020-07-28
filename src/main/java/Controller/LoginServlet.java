@@ -1,12 +1,13 @@
+package Controller;
+
 import Database.MySqlDB;
-import GameObjects.PlayersWaiting;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/Controller.LoginServlet")
 public class LoginServlet extends HttpServlet {
     private MySqlDB database;
 

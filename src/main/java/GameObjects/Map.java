@@ -32,10 +32,11 @@ public class Map implements MapLoader{
             room.setSide(Direction.SOUTH, getRandomSite());
             room.setSide(Direction.EAST, getRandomSite());
             room.setSide(Direction.NORTH, getRandomSite());
-            room.setRoomLight(new Light());
+            Light light = new Light();
+            light.setLightON(true);
+            room.setRoomLight(light);
             gameMap.addRoom(room);
         }
-        System.out.println("number of rooms "+gameMap.getRoomsNumber());
 
         for (int i=1 ; i<numberOfRooms ; i++){
             Room room1 = gameMap.roomNo(i);
