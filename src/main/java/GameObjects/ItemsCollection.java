@@ -23,7 +23,6 @@ public class ItemsCollection {
             throw new IllegalArgumentException("Item does not exist");
         if (item == null)
             throw new IllegalArgumentException();
-
         itemsCollection.remove(item.getITEM_NAME());
     }
 

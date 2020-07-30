@@ -3,8 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="path" class="GameObjects.ImagesPath"></jsp:useBean>
 <%
-    String userName = null;
-    String playerid = null;
+    String userName = "";
+    String playerid = "";
     int numberOfPlayers = 0;
     JSONObject jsonObject=null;
     if(request.getSession(false)!=null){

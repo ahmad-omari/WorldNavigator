@@ -8,9 +8,7 @@ public class GameListener {
     private static int numberOfPlayers;
 
     public GameListener(){
-       // gameMaps = new HashMap<>();
-      //  mapID = 0;
-      //  numberOfPlayers = 0;
+
     }
 
     public static int numberOfMaps(){
