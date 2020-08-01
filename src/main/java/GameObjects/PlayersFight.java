@@ -50,12 +50,12 @@ public class PlayersFight {
 
     }
 
-    private void makePlayerLose(String playerID1){
+    public void makePlayerLose(String playerID1){
         JSONObject jsonObject = PlayerInfo.getJSONObject(playerID1);
         jsonObject.put("fight","lose");
     }
 
-    private void takeGold(String loserID,int loserGold){
+    public void takeGold(String loserID,int loserGold){
         int gold = loserGold/(gameMap.getPlayersNumber()-1);
         Iterator iterator = gameMap.getPlayersIterator();
         while (iterator.hasNext()){
@@ -72,7 +72,7 @@ public class PlayersFight {
 
     }
 
-    private void collectItems(String playerWinner,String playerLoser){
+    public void collectItems(String playerWinner,String playerLoser){
         Iterator iterator = gameMap.getPlayer(playerLoser).getItemsIterator();
 
         while (iterator.hasNext()){
@@ -82,6 +82,20 @@ public class PlayersFight {
                 gameMap.getPlayer(playerWinner).addPlayerItem(item);
             }
         }
+    }
+
+    public void removeItems(String playerLoser){
+        Iterator iterator = gameMap.getPlayer(playerLoser).getItemsIterator();
+        int randomRoom = (int) (Math.random() * (gameMap.getRoomsNumber() - 2 + 1) + 1);
+        Chest chest = new Chest();
+        while (iterator.hasNext()){
+            java.util.Map.Entry pair = (Map.Entry) iterator.next();
+            Item item = (Item) pair.getValue();
+            if (item!=null) {
+                chest.addChestItem(item);
+            }
+        }
+        gameMap.roomNo(randomRoom).setSide(Direction.WEST,chest);
     }
 
 

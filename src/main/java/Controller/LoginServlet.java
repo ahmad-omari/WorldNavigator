@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/Controller.LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -17,21 +18,18 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Obtain parameters from the client
         String user = request.getParameter("uname");
-        String password = request.getParameter("password");
+        String password = request.getParameter("pass");
         boolean result = database.isValidPlayer(user,password);
-
+        PrintWriter writer = response.getWriter();
         if (result){
             HttpSession session=request.getSession();
             session.setAttribute("name",user);
-            response.sendRedirect("GameLoaderServlet");
+            writer.print("True");
         }else {
-            String message="Invalid user.";
-            request.setAttribute("invalid", message);
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            writer.println("Invalid User");
         }
-
+        writer.close();
     }
 
 }

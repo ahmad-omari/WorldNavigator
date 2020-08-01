@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/Controller.RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -21,18 +22,17 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         result=false;
         String username = request.getParameter("uname");
-        String password = request.getParameter("password");
+        String password = request.getParameter("pass");
         if (username!=null && password!=null) {
             result =database.addPlayer(username, password);
         }
-        String message="";
+        PrintWriter writer = response.getWriter();
         if (result)
-            message = "Successfully registered.";
+            writer.println("Successfully registered.");
         else
-            message = "Registration failed.";
+            writer.println("Registration failed.");
+        writer.close();
 
-        request.setAttribute("message", message);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
 }

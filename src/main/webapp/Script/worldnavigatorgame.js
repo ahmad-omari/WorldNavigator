@@ -126,9 +126,12 @@ window.onload = function () {
     }
 
     function logout() {
+        commandRequest("logout");
+        /*
         if (window.confirm("Do you really want to leave the game?")) {
             window.location.href = "LogoutServlet";
         }
+         */
     }
 
     function commandRequest(cmd) {
@@ -141,7 +144,7 @@ window.onload = function () {
                     if (data === "finished"){
                     }else {
                         $('#somediv').text(data);
-                        if (cmd == 'forward' || cmd == 'backward' || cmd == 'left' || cmd == 'right') {
+                        if (cmd == 'forward' || cmd == 'backward' || cmd == 'left' || cmd == 'right' || cmd == 'logout') {
                             location.reload();
                         }
                     }

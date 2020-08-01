@@ -26,6 +26,17 @@ public class CommandRequestServlet extends HttpServlet {
         JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
 
         GameMap map = GameListener.getGameMap(gameID);
+
+        if (command.equals("logout")){
+            if (jsonObject.get("fiqht")==null) {
+                PlayersFight playeLose = new PlayersFight(map);
+                int playerGold = map.getPlayer(playerID).getPlayerItem(new Gold().getITEM_NAME()).getItemValue();
+                playeLose.makePlayerLose(playerID);
+                playeLose.takeGold(playerID, playerGold);
+                playeLose.removeItems(playerID);
+            }
+        }
+
         String result = "";
         if (map.isAvailable()) {
             MapController controller = new MapController(map);
