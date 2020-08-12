@@ -2,38 +2,14 @@
 <%@ page import="GameObjects.PlayerInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="path" class="GameObjects.ImagesPath"></jsp:useBean>
-<%
-    String userName = "";
-    String playerid = "";
-    int numberOfPlayers = 0;
-    JSONObject jsonObject=null;
-    if(request.getSession(false)!=null){
-        userName = (String)request.getSession(false).getAttribute("name");
-        numberOfPlayers = (int) request.getSession(false).getAttribute("numberofplayers");
-        jsonObject = PlayerInfo.getJSONObject(request.getSession(false).getId());
-        if (jsonObject.get("result").equals("finished")){
-            if (jsonObject.get("winner")!=null) {
-                request.getSession().setAttribute("usename", jsonObject.get("winner"));
-            }
-            response.sendRedirect("GameEnd.jsp");
-        }
-        if (jsonObject.get("fight") != null){
-            if (jsonObject.get("fight").equals("lose")) {
-                response.sendRedirect("GameLose.jsp");
-            }
-        }
-        playerid = request.getSession(false).getId();
-    }
-    if(userName == null) response.sendRedirect("index.jsp");
-%>
 <html>
 <head>
     <title>World Navigator</title>
     <link rel="stylesheet" type="text/css" href="Style/WorldNavigatorGame.css">
     <script type="text/javascript">
-        var playerID = "<%=playerid%>";
-        var playerName = "<%=userName%>";
-        var mapID = "<%=jsonObject.get("gameID")%>";
+        var playerID = "<%=request.getSession(false).getId()%>";
+        var playerName = "<%=(String)request.getSession(false).getAttribute("name")%>";
+        var mapID = "<%=PlayerInfo.getJSONObject(request.getSession(false).getId()).get("gameID")%>";
         var isGameFinished = false;
     </script>
     <script type="text/javascript" src="Script/worldnavigatorgame.js"></script>
@@ -42,31 +18,31 @@
 <body>
 <div class="centerAll">
     <h1>World Navigator Game</h1> <br>
-    <h3>Game ID:<%=jsonObject.get("gameID")%></h3>
+    <h3>Game ID:<%=PlayerInfo.getJSONObject(request.getSession(false).getId()).get("gameID")%></h3>
     <h3>Game time: 2 Hours</h3>
-    <h3>Number of rooms:<%=jsonObject.get("numberOfRooms")%></h3>
-    <h3>Number of players:<%=numberOfPlayers%></h3>
-    <h3>Room number:<%=jsonObject.get("roomNumber")%></h3>
+    <h3>Number of rooms:<%=PlayerInfo.getJSONObject(request.getSession(false).getId()).get("numberOfRooms")%></h3>
+    <h3>Number of players:<%=(int) request.getSession(false).getAttribute("numberofplayers")%></h3>
+    <h3>Room number:<%=PlayerInfo.getJSONObject(request.getSession(false).getId()).get("roomNumber")%></h3>
     <hr>
     <table class="center">
         <tr>
-            <th colspan="5"><img src=<%=path.getPath(jsonObject.get("northSide").toString())%>></th>
+            <th colspan="5"><img src=<%=path.getPath(PlayerInfo.getJSONObject(request.getSession(false).getId()).get("northSide").toString())%>></th>
         </tr>
         <tr>
-            <th rowspan="3"><img src=<%=path.getPath(jsonObject.get("eastSide").toString())%>></th>
-            <th colspan="3"><img src=<%=path.getArrowPath((int)jsonObject.get("direction"),"north")%>></th>
-            <th rowspan="3"><img src=<%=path.getPath(jsonObject.get("westSide").toString())%>></th>
+            <th rowspan="3"><img src=<%=path.getPath(PlayerInfo.getJSONObject(request.getSession(false).getId()).get("eastSide").toString())%>></th>
+            <th colspan="3"><img src=<%=path.getArrowPath((int)PlayerInfo.getJSONObject(request.getSession(false).getId()).get("direction"),"north")%>></th>
+            <th rowspan="3"><img src=<%=path.getPath(PlayerInfo.getJSONObject(request.getSession(false).getId()).get("westSide").toString())%>></th>
         </tr>
         <tr>
-            <th><img src=<%=path.getArrowPath((int)jsonObject.get("direction"),"east")%>></th>
-            <th><h1><%=userName %></h1></th>
-            <th><img src=<%=path.getArrowPath((int)jsonObject.get("direction"),"west")%>></th>
+            <th><img src=<%=path.getArrowPath((int)PlayerInfo.getJSONObject(request.getSession(false).getId()).get("direction"),"east")%>></th>
+            <th><h1><%=(String)request.getSession(false).getAttribute("name") %></h1></th>
+            <th><img src=<%=path.getArrowPath((int)PlayerInfo.getJSONObject(request.getSession(false).getId()).get("direction"),"west")%>></th>
         </tr>
         <tr>
-            <th colspan="3"><img src=<%=path.getArrowPath((int)jsonObject.get("direction"),"south")%>></th>
+            <th colspan="3"><img src=<%=path.getArrowPath((int)PlayerInfo.getJSONObject(request.getSession(false).getId()).get("direction"),"south")%>></th>
         </tr>
         <tr>
-            <th colspan="5"><img src=<%=path.getPath(jsonObject.get("southSide").toString())%>></th>
+            <th colspan="5"><img src=<%=path.getPath(PlayerInfo.getJSONObject(request.getSession(false).getId()).get("southSide").toString())%>></th>
         </tr>
     </table>
     <hr>
@@ -80,7 +56,7 @@
 
 <div class="commands">
     <h3>Result:</h3>
-    <p><%=jsonObject.get("result")%></p>
+    <p><%=PlayerInfo.getJSONObject(request.getSession(false).getId()).get("result")%></p>
     <div id="somediv"></div>
     <button type="button" name="look" value="look" class="button" id="look">Look</button>
     <button type="button" name="check" value="check" class="button" id="check">Check</button>

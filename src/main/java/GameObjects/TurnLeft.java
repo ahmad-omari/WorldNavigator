@@ -20,7 +20,6 @@ public class TurnLeft implements Command {
             player.setFacingDirection(Direction.WEST);
         else if (player.getFacingDirection().equals(Direction.EAST))
             player.setFacingDirection(Direction.SOUTH);
-
         JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
         jsonObject.put("direction",player.getFacingDirection().ordinal());
         jsonObject.put("result","Turned left");

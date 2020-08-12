@@ -9,20 +9,18 @@ public class GameMap {
     private GameTimer timer;
     private  boolean available;
     private int mapID;
-    private static HashMap<String,Player> players;
-
+    private static HashMap<String,Player> players = new HashMap<>();
     private HashMap<String,Room> activeRooms;
     private HashMap<String,Room> otherRooms;
     private String winnerName;
-    private boolean gameFinished;
+    private boolean closed;
 
     public GameMap(){
         mapRooms = new ArrayList<>();
-        players = new HashMap<>();
         activeRooms = new HashMap<>();
         otherRooms = new HashMap<>();
         available = true;
-        gameFinished = false;
+        closed = false;
         startTimer();
     }
 
@@ -30,6 +28,14 @@ public class GameMap {
         timer = new GameTimer();
         timer.setTimeInMinutes(120);
         timer.start();
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
     public int getMapID() {

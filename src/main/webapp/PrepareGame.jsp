@@ -1,38 +1,27 @@
-<%@ page import="java.util.HashSet" %>
-<%@ page import="GameObjects.PlayersWaiting" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="time" scope="application" class="GameObjects.PlayersWaiting"/>
 <html>
 <head>
     <title>World Navigator</title>
     <link rel="stylesheet" type="text/css" href="Style/prepare.css">
+    <script type="text/javascript">
+        var waitingtime = "<%=time.getTimerSeconds()%>";
+    </script>
     <script type="text/javascript" src="Script/prepare.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 </head>
 <body>
-<% response.setHeader("Refresh", "1"); %>
-<%
-
-    HashSet<String> names = new HashSet<>();
-    if(request.getSession(false)!=null){
-        names = (HashSet<String>) request.getSession().getAttribute("names");
-    }
-    request.getSession().setAttribute("numberofplayers",names.size());
-    if (PlayersWaiting.getTimerSeconds() == 0){
-        response.sendRedirect("Controller.MapsServlet");
-    }
-%>
-
 <div class="container">
-    <h1>Game will start in <%=PlayersWaiting.getTimerSeconds()%> seconds</h1>
-    <h1>Number of players <%=names.size()%></h1><br>
-
+    <h1>Game will start in <%=time.getTimerSeconds()%> seconds</h1>
     <h1>Player names</h1>
     <ol>
-    <%
-        for (String s : names) {%>
-            <%= "<li><h3>"+ s +"</h3></li> <br>"%>
-     <% }   %>
+        <c:forEach var="playername" items="${names}">
+            <li> <c:out value="${playername}"/> </li>
+        </c:forEach>
     </ol>
 </div>
-
-
 </body>
 </html>

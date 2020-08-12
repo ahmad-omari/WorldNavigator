@@ -25,10 +25,13 @@ public class GameListener {
 
     public synchronized GameMap createMap(){
         System.out.println("number of players "+numberOfPlayers+" maps:"+gameMaps.size());
-         if (numberOfPlayers>0 && gameMaps.get(mapID)!=null && gameMaps.get(mapID).isAvailable()){
+         if (numberOfPlayers>0 && gameMaps.get(mapID)!=null && (!gameMaps.get(mapID).isClosed())){
             numberOfPlayers--;
+            if (numberOfPlayers==0)
+                gameMaps.get(mapID).setClosed(true);
+             // numberOfPlayers-=(1+gameMaps.get(mapID).getPlayersNumber());
            // if (numberOfPlayers==0)
-               // gameMaps.get(mapID).setAvailable(false);
+             //   gameMaps.get(mapID).setAvailable(false);
             return gameMaps.get(mapID);
         }
 

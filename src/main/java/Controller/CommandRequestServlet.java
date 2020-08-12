@@ -23,10 +23,11 @@ public class CommandRequestServlet extends HttpServlet {
         String playerID = request.getParameter("IDPlayer");
         String command = request.getParameter("command");
 
+        System.out.println("CMD: "+gameID+" "+playerName+" "+playerID+" "+command);
         JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
-
+        System.out.println("Json is : "+jsonObject==null);
         GameMap map = GameListener.getGameMap(gameID);
-
+        System.out.println("MAP IS "+(map==null));
         if (command.equals("logout")){
             if (jsonObject.get("fiqht")==null) {
                 PlayersFight playeLose = new PlayersFight(map);
@@ -36,7 +37,6 @@ public class CommandRequestServlet extends HttpServlet {
                 playeLose.removeItems(playerID);
             }
         }
-
         String result = "";
         if (map.isAvailable()) {
             MapController controller = new MapController(map);
@@ -51,15 +51,16 @@ public class CommandRequestServlet extends HttpServlet {
             }
         }else {
             jsonObject.put("result","finished");
-            if (map.getWinnerName()!=null){
-                System.out.println("winner name is " + playerName);
-                jsonObject.put("winner",map.getWinnerName());
-                out.println("finished");
-                result = (String) jsonObject.get("finished");
+            jsonObject.put("winner",map.getWinnerName());
+            result = "finished";
+        }
+        if (jsonObject.get("fight") != null){
+            if (jsonObject.get("fight").equals("lose")) {
+                result="lose";
             }
         }
 
-        out.println(result);
+        out.print(result);
         out.close();
     }
 

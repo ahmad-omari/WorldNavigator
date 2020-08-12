@@ -20,7 +20,7 @@ public class PlayersWaiting {
             @Override
             public void run() {
                 timerSeconds--;
-                if (timerSeconds == 0) {
+                if (timerSeconds <= 1) {
                     timerTask.cancel();
                 }
             }

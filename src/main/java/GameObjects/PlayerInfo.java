@@ -9,7 +9,7 @@ public class PlayerInfo {
 
     }
 
-    public void createJSONObject(String playerID){
+    public static void createJSONObject(String playerID){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("gameID",0);
         jsonObject.put("numberOfRooms",0);
@@ -30,6 +30,8 @@ public class PlayerInfo {
     }
 
     public static JSONObject getJSONObject(String playerID){
+        if (playersInfo.get(playerID)==null)
+            createJSONObject(playerID);
         return playersInfo.get(playerID);
     }
 

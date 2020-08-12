@@ -24,6 +24,7 @@ public class MoveForward implements Command {
                     status.setPlaying(false);
                     System.out.println("\nYou win");
                     JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
+                    map.setWinnerName(playerID);
                     jsonObject.put("result","finished");
                 }else {
                     map.setActiveRoom(nextRoom,playerID);

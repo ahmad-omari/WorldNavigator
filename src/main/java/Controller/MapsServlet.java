@@ -1,6 +1,7 @@
 package Controller;
 
 import GameObjects.GameDriver;
+import GameObjects.PlayersCounter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +15,9 @@ import java.io.IOException;
 public class MapsServlet extends HttpServlet {
     private GameDriver gameDriver;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        request.getSession().setAttribute("numberofplayers", PlayersCounter.getCount());
         gameDriver = new GameDriver(session);
         gameDriver.createGame();
         response.sendRedirect("WorldNavigatorGame.jsp");
