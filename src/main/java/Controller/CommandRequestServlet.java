@@ -23,11 +23,9 @@ public class CommandRequestServlet extends HttpServlet {
         String playerID = request.getParameter("IDPlayer");
         String command = request.getParameter("command");
 
-        System.out.println("CMD: "+gameID+" "+playerName+" "+playerID+" "+command);
         JSONObject jsonObject = PlayerInfo.getJSONObject(playerID);
-        System.out.println("Json is : "+jsonObject==null);
         GameMap map = GameListener.getGameMap(gameID);
-        System.out.println("MAP IS "+(map==null));
+
         if (command.equals("logout")){
             if (jsonObject.get("fiqht")==null) {
                 PlayersFight playeLose = new PlayersFight(map);
@@ -35,6 +33,7 @@ public class CommandRequestServlet extends HttpServlet {
                 playeLose.makePlayerLose(playerID);
                 playeLose.takeGold(playerID, playerGold);
                 playeLose.removeItems(playerID);
+                jsonObject.put("fiqht","lose");
             }
         }
         String result = "";

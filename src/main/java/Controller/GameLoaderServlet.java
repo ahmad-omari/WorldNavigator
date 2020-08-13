@@ -26,7 +26,6 @@ public class GameLoaderServlet extends HttpServlet {
     }
 
     protected synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("the waiting time is "+PlayersWaiting.getTimerSeconds());
         if (PlayersWaiting.getTimerSeconds()<=1) {
             waiting = new PlayersWaiting();
             names.clear();

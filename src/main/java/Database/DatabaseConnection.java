@@ -7,9 +7,6 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
-    private String url = "jdbc:mysql://localhost/worldnavi?autoReconnect=true&useSSL=false";
-    private String username = "root";
-    private String password = "123456";
 
     private DatabaseConnection() throws SQLException {
         try {

@@ -29,9 +29,6 @@ public class GameListener {
             numberOfPlayers--;
             if (numberOfPlayers==0)
                 gameMaps.get(mapID).setClosed(true);
-             // numberOfPlayers-=(1+gameMaps.get(mapID).getPlayersNumber());
-           // if (numberOfPlayers==0)
-             //   gameMaps.get(mapID).setAvailable(false);
             return gameMaps.get(mapID);
         }
 

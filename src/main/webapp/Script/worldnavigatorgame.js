@@ -142,7 +142,7 @@ window.onload = function () {
                         window.location.href = 'LoserServlet';
                     } else{
                         $('#somediv').text(data);
-                        if (cmd == 'forward' || cmd == 'backward' || cmd == 'left' || cmd == 'right' || cmd == 'logout') {
+                        if (cmd == 'forward' || cmd == 'backward' || cmd == 'left' || cmd == 'right') {
                             location.reload();
                         }
                     }
