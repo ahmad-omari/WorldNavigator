@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <h1>World Navigator Game</h1>
-    <h3>Register here</h3>
+    <h3>Register here!</h3>
     <form>
         <input type="text" placeholder="Username" name="uname" id="regname">
         <input type="password" placeholder="Password" name="password" id="regpassword">
